@@ -34,7 +34,7 @@ int main(int argc,char *argv[])
 	    while(iI<argc)                                      //while loop for checking the argcount
 	    {
 		    int iA=atoi(argv[iI]);							//atoi function for converting string to int
-		    if(iA==0)										//if the 'if' loop is true then char and string will be displayed
+		    if(iA==0)									//if the 'if' loop is true then char and string will be displayed
 		    {
 			    if(strlen(argv[iI])==1)
 				    cout<<endl<<"\t char";
@@ -42,7 +42,7 @@ int main(int argc,char *argv[])
 				    cout<<endl<<"\t string";
 				    cout<<"\t\t"<< argv[iI]<<"\t\t"<<strlen(argv[iI]);
 		    }
-		    else											//else case for displaying int and float values
+		    else									//else case for displaying int and float values
 		    {
 			    float fB=atof(argv[iI]);
 			    if(iA==fB)
