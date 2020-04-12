@@ -14,6 +14,7 @@ class base
  	    int Ik;
  	public:
  	    int Il;
+	// Default constructor
  	base() 
  	{
  	   Ij = 1;
@@ -27,9 +28,9 @@ class derive: private base
  	    void showdata()
  	    {
  	           cout <<  "   *** Using Accessmode as private***    " << endl;
-               cout <<  "   j is not Accessible because we declared as private " << endl;             
-               cout <<  "   value of k is   " << Ik << endl;
-               cout <<  "   value of l is   " << Il << endl;
+               	   cout <<  "   j is not Accessible because we declared as private " << endl;             
+               	   cout <<  "   value of k is   " << Ik << endl;
+                   cout <<  "   value of l is   " << Il << endl;
  	    }
 };
 class derivea: protected base
@@ -39,8 +40,8 @@ class derivea: protected base
  	    {
  	           cout<<   "   *** Using Accessmode as protected***  " << endl;
  	           cout <<  "   j is not Accessible because we declared as private " << endl;
-               cout <<  "   value of k is   " << Ik << endl;
-               cout <<  "   value of l is    " << Il << endl;
+               	   cout <<  "   value of k is   " << Ik << endl;
+                   cout <<  "   value of l is    " << Il << endl;
  	    }
 };
 class deriveb: public base
@@ -50,8 +51,8 @@ class deriveb: public base
  	    {
  	           cout<<   "   *** Using Accessmode as public*** " << endl;;
  	           cout <<  "   j is not Accessible because we declared as private " << endl;
-               cout <<  "   value of k is   " << Ik << endl;
-               cout <<  "   value of l is   " << Il << endl;
+                   cout <<  "   value of k is   " << Ik << endl;
+                   cout <<  "   value of l is   " << Il << endl;
  	    }
 };
 int main(int argc,char *argv[])
