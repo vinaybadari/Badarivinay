@@ -1,5 +1,5 @@
 /*
-filename: case-3.cpp
+filename: storageclassess.cpp
 details: Program to demonstrate different storage classes
 author: Badari vinay
 date: 11/04/2020
