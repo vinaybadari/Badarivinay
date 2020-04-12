@@ -1,6 +1,5 @@
-/*case 2:Find the formula for given expression and write the program for the given input expression:1+4+9+16+....+100*/
 /*purpose	:Program for calculating the sum of the squares of a given number
-  filename	:case2.cpp
+  filename	:sum of inetegers.cpp
   Author 	:Badari vinay
   Date   	:08/04/2020
 */
