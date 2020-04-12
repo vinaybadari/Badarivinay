@@ -1,5 +1,5 @@
 /*
-filename: case-4.cpp
+filename: access specifiers.cpp
 details: Program to demonstrate access specifiers
 author: Badari vinay
 date: 11/04/2020
