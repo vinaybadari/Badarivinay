@@ -1,6 +1,5 @@
-/*case 1:Parse the give command line and display type and size of() */
 /*purpose	:parse the command line and dispaly the output
-  filename	:case1.cpp
+  filename	:command line arguments.cpp
   Author 	:Badari vinay
   Date   	:08/04/2020
 */
