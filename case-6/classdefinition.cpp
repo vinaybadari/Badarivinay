@@ -5,70 +5,91 @@ author: Badari vinay
 date: 11/04/2020
 */
 #include<iostream>
-#include<string.h>
+#include<cstring>
+#include<stdlib.h>
 using namespace std;
-class Team
+class Student
 {
-      //declaration of variables in private
-		  int *batchno;					
-	    char name[20];				
-	public:
-	    //default constructor
-		Team()					
-	    {
-	        cout<<"\t\t Default constructor  called"<<endl;
-	    }
-	    //parameterized constructor
-	    Team(char *teamname)			
-	    {
-	        strcpy(name,teamname);
-	        cout<<"\t\t Parameterized constructor  called"<<endl;
-	    }
-	    void display()
-	    {
-	        cout<<"\t\t Team name:"<<name<<endl;
-	    }
-	    //+ operator overloading
-	    Team operator+(Team s)				 
-	    {
-	        Team temp=name;
-	        strcat(temp.name,s.name);
-	        return temp;
-	    }	
-	    // destructor
-	    ~Team()							
-	    {
-		    cout<<"\t\t Team destructor"<<endl;
-	    }
-	    friend int increment();
-};
-// function declaration
-int increment()
-{   
-    int a[2]={10,11};
-    int *batchno;										
-    batchno=&a[0];
-    cout<<"\t\t Batch number before incrementation:"<<*batchno<<endl;
-    batchno++;							
-    cout<<"\t\t Batch number after incrementation: "<<*batchno<<endl;
-}
-int main(int argc,char *argv[])
-{
-    if(argc>1) 
+//declaration of variables in private
+private:
+	char cName[20];
+	int *iNumb;
+public:
+	//default constructor
+	Student()
 	{
-		cout<<"\n Usage of file --> \n"
-		"\t filename.exe and enter"<<endl<<
-		"		or"<<endl<<
-		"\t ./filename.out and enter"<<endl;
+		cout<<"\t\t Default constructor invoked"<<endl;
+	}
+	//parametrised constructor
+	Student(char *str)
+	{
+		cout<<"\t\t Parametrised constructor invoked"<<endl;
+		strcpy(cName,str);//coping string
+	}
+	//Display function
+	void Display()
+	{
+		cout<<"\t\t Rollno: "<<*iNumb<<endl;
+	}
+	//Show function
+	void Show()
+	{
+		cout<<"\t\t Name: "<<cName<<endl;
+	}
+	//overloading oprator'+'
+	Student operator+(Student s)
+	{
+		Student temp=cName;
+		strcat(temp.cName,s.cName);	//adding two strings
+		return temp;
+	}
+	//setValue function
+	void setValue(int *iVal)
+	{
+		iNumb=iVal;
+	}
+	//setName function
+	void setName(char cName[])
+	{
+		cName=cName;
+	}
+	//destructor 
+	~Student()
+	{
+		cout<<"\t\t Destructor invoked"<<endl;
+	}
+};
+
+int main(int argc,char **argv)
+{
+	if(argc==2) 
+	{
+		if(strcmp(argv[1],"-h")==0)     
+        {
+			cout<<"\n Usage of file --> \n"
+					"\t filename.exe & enter"<<endl<<
+					"\t Program used to access pointer to integer and char variables. "<<endl<<
+					"\t insert an integer and any two strings. ";
+		}	
 	}
 	else
-	{
-		//calling parameterized constructor
-        Team a1("  Vijayawada");			
-        Team a2("	PNP ");
-        Team a3;
-        a3=a2+a1;				
-        a3.display();
-        increment();
-    }
+	{	
+		int iValue; 
+		char fname[30],sname[30]; 
+		cout<<"\t\t Enter Rollno:";
+		cin>>iValue;
+		cout<<"\t\t Surname: ";
+		cin>>fname;
+		cout<<"\t\t Middle name: ";
+		cin>>sname;
+		//object declaration
+		Student str1(fname);
+		Student str2=(sname);
+		Student str3;
+		Student s;
+		str3=str1+str2;
+		s.setValue(&iValue);
+		s.Display();
+		str3.Show();
+	}
 }
