@@ -6,35 +6,30 @@
 
 #include<iostream>
 #include<string.h>
-#include<stdlib.h>
 using namespace std;
-// function name : formula 
-//  parameters    : int
-
-int formula()  
+//Function Name : SumOfSquares/
+int SumOfSquares()
 {
-	int isum=0;
-	int in;
+		int isum=0;
+		int in;
 		cout<<"Input	:	";
 		cin>>in;
-        	// Formula for given expression , n(n+1)(2n+1)/6
+		// Formula for given expression , n(n+1)(2n+1)/6
 		isum = (in * (in + 1) * (2 * in+1)) / 6;   
-        	cout<<"Output	:	"<<isum;
+        cout<<"Output	:	"<<isum;	
 }
-int main(int argc,char *argv[])
+int main(int argc,char* argv[])
 {
-    if(argc>=2)
-    {
-	    if(strcmp(argv[1],"-h")==0)					
-	    {
-            cout<<"Usage:The main purpose of this program is to find the formula for given expression "<<endl;
-            cout<<"	input	:	4"<<endl;
-            cout<<"	output	:	30"<<endl;
-	    }
-    }
+	//Declaring variables ar required
+   	if((argc==2) && (strcmp(argv[1],"-h")==0))
+	{               
+		{
+		    cout<<"----------Usage Of The File---------------"<<endl;
+			cout<<"Enter any integer value  "<<endl; 
+		}
+	}	
 	else
 	{
-         formula();
-    }
-    
+		SumOfSquares();
+	}
 }
