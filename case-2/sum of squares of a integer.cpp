@@ -8,21 +8,24 @@
 #include<string.h>
 #include<stdlib.h>
 using namespace std;
-int formula()  // function name : formula 
-	      //  parameters    : int
+// function name : formula 
+//  parameters    : int
+
+int formula()  
 {
 	int isum=0;
 	int in;
 		cout<<"Input	:	";
 		cin>>in;
-        	isum = (in * (in + 1) * (2 * in+1)) / 6;   // Formula for given expression , n(n+1)(2n+1)/6
+        	// Formula for given expression , n(n+1)(2n+1)/6
+		isum = (in * (in + 1) * (2 * in+1)) / 6;   
         	cout<<"Output	:	"<<isum;
 }
 int main(int argc,char *argv[])
 {
     if(argc>=2)
     {
-	    if(strcmp(argv[1],"-h")==0)					//if loop for comparing the input string with "-h"
+	    if(strcmp(argv[1],"-h")==0)					
 	    {
             cout<<"Usage:The main purpose of this program is to find the formula for given expression "<<endl;
             cout<<"	input	:	4"<<endl;
