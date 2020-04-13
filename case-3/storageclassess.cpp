@@ -28,15 +28,16 @@ void scope()
 void modifier()
 {
 	int iNumb;
-	short int a;		// declaring varible short integer
-	long int b;			// declaring varible long integer 
-	unsigned short c;	// declaring varible unsigned short 
-	signed short d;		// declaring varible signed short	
+	short int a;		
+	long int b;			
+	unsigned short c;	 
+	signed short d;			
 		cout << "enter value: ";
 		cin>>iNumb;
-		a=c=d=b=iNumb;    //value of a, b, c and d is assigned same 
+				a=c=d=b=iNumb;    
 		cout << " ---------------- Modifiers--------------------------- "<<endl;
-		cout << "             short int 		= " << a << endl;        //outputs of the values based on modifiers
+		// values based on modifiers
+		cout << "             short int 		= " << a << endl;        
 		cout << "             long int  		= " << b << endl;
 		cout << "             unsigned short 	= " <<c << endl;
 		cout << "             signed short 		= " <<d << endl;
@@ -59,14 +60,16 @@ int main(int argc,char *argv[])
 	static int p;
 	int q;
 	int iValue;
-    if(argc>1) 
-	{
-		cout<<"\n Usage of file --> \n"
-		"\t filename.exe and enter"<<endl<<
-		"			or"<<endl<<
-		"\t ./filename.out and enter"<<endl;
-	}
-	else
+
+    if(argc>=2)
+    {
+	    if(strcmp(argv[1],"-h")==0)					
+	    {
+            cout<<"                                     USAGE                                          "<<endl;
+            cout<<"This program explains the usage of variable scope,modifier types & storage classes"<<endl;
+	    }
+    }
+    else
 	{	
 		scope();
 		modifier();
@@ -98,23 +101,16 @@ int main(int argc,char *argv[])
 		return 0; 
 	} 
 }
-//auto storage class
 void autoStorageClass(auto int a) 
-{ 
-	// declaring an auto variable 
+{  
 	//auto int a = 'a';
-
-	// print auto variable 
 	cout<<" Value of the auto variable : "<<a<<endl; 
 	cout<<"--------------------------------"<<endl; 
 } 
 
 void registerStorageClass(register int b) 
 { 
-	// declaring a register variable 
 	//register int b = 'a'; 
-
-	// print register variable
 	cout<<" Value of the register variable : "<<b<<endl; 
 	cout<<"--------------------------------"<<endl;  
 } 
