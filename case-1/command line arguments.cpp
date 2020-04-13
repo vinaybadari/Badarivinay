@@ -7,43 +7,43 @@
 #include<string.h>
 #include<stdlib.h>
 using namespace std;
+
+//function to check length of string is '1' or not
+bool checkDatatype(string sStr);
+
+//main using command line arguments
 int main(int argc,char *argv[])
 {
-    if(argc>=2)
-    {
-	    if(strcmp(argv[1],"-h")==0)							//if loop for comparing the input string with "-h"
-	    {
-            		 cout<<"Usage:The main purpose of this program is to calculate the datatype,value and sizeof the value"<<endl;
-   		   	 cout<<"user should give the input the following format:"<<endl;
-    			 cout<<"Input:"<<"\t"<<"1"<<"\t"<<"a"<<"\t"<<"sss"<<"\t"<<"4.5643"<<endl;
-			 cout<<"output is displayed in the form of:"<<endl;
-			 cout<<"Type"<<"\t"<<"value"<<"\t"<<"sizeof"<<endl;
-			 cout<<"char"<<"\t"<<"a"<<"\t"<<"1"<<endl;
-			 cout<<"int"<<"\t"<<"1"<<"\t"<<"4"<<endl;
-			 cout<<"string"<<"\t"<<"sss"<<"\t"<<"3"<<endl;
-			 cout<<"float"<<"\t"<<"4.5643"<<"\t"<<"4"<<endl;
-
-	    }
+	if((argc<=2) || (strcmp(argv[1],"-h")==0))
+		{
+			//if loop for comparing the input string with "-h" and displaying the usage	              
+	    	{
+	    		cout<<"              Usage Of The File           "<<endl;
+				cout<<argv[0]<<"datatype1 datatype2 .... datatypeN "<<endl; 
+	    	}
+	}
     else
     {
-	    int iI=1;
-	    cout<<argv[0]<<endl;								//printing the filename.exe by using argv[0]
+	    int iJ=2;
 	    cout<<"_______________________________________________________"<<endl;
 		cout<<"	 type	"<<"\t"<<"value	"<<"\t"<<"size	"<<endl;
-	    while(iI<argc)                                      //while loop for checking the argcount
+	    //while loop for checking the argcount
+		while(iJ<argc)                                      
 	    {
-		    int iA=atoi(argv[iI]);							//atoi function for converting string to int
-		    if(iA==0)									//if the 'if' loop is true then char and string will be displayed
+		    //atoi function for converting string to int
+			int iA=atoi(argv[iJ]);						
+		    if(iA==0)									
 		    {
-			    if(strlen(argv[iI])==1)
+			    if(strlen(argv[iJ])==1)
 				    cout<<endl<<"\t char";
-			    else
+				else
 				    cout<<endl<<"\t string";
-				    cout<<"\t\t"<< argv[iI]<<"\t\t"<<strlen(argv[iI]);
+				    cout<<"\t\t"<< argv[iJ]<<"\t\t"<<strlen(argv[iJ]);
 		    }
-		    else									//else case for displaying int and float values
+		    //else case for displaying int and float values
+			else									
 		    {
-			    float fB=atof(argv[iI]);
+			    float fB=atof(argv[iJ]);
 			    if(iA==fB)
 			    {
 				    cout<<endl<<"\t int"<<"\t\t"<<iA<<"\t\t"<<sizeof(iA);
@@ -51,9 +51,17 @@ int main(int argc,char *argv[])
 			    else
 				    cout<<endl<<"\t float"<<"\t\t"<<fB<<"\t\t"<<sizeof(fB)<<endl;
 		}
-		iI++;
+		iJ++;
 		}
     }
-    				cout<<"____________________________________________________";
     }
+    
+//function to check length of string is '1' or not
+bool checkDatatype(string sStr)
+{
+	int iLength;
+	for(iLength=0;sStr.length()==1;iLength++)
+	{
+		return true;
+	}
 }
