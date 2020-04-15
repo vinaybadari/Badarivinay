@@ -11,11 +11,11 @@ using namespace std;
 int SumOfSquares()
 {
 		int isum=0;
-		int in;
+		int inum;
 		cout<<"Input	:	";
-		cin>>in;
+		cin>>inum;
 		// Formula for given expression , n(n+1)(2n+1)/6
-		isum = (in * (in + 1) * (2 * in+1)) / 6;   
+		isum = (inum * (inum + 1) * (2 * inum+1)) / 6;   
         cout<<"Output	:	"<<isum;	
 }
 int main(int argc,char* argv[])
