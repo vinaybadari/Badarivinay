@@ -16,7 +16,8 @@ int SumOfSquares()
 		cin>>inum;
 		// Formula for given expression , n(n+1)(2n+1)/6
 		isum = (inum * (inum + 1) * (2 * inum+1)) / 6;   
-        cout<<"Output	:	"<<isum;	
+		// shows the sum of squares of given number
+        	cout<<"Output	:	"<<isum;	
 }
 int main(int argc,char* argv[])
 {
