@@ -2,49 +2,29 @@
 #include<string.h>
 #include<stdlib.h>
 using namespace std;
-
-//function to check length of string is '1' or not
-bool checkDatatype(string sStr);
-
-//main using command line arguments
-int main(int argc,char *argv[])
+//Function to check the datatype of Arguments.
+void TypeCheck(char *argv)
 {
-	//if((argc==2) || (strcmp(argv[1],"-h")==0))
-	if(argc==2)
-		{
-			//if loop for comparing the input string with "-h" and displaying the usage	              
-	    	{
-	    		cout<<" Usage Of The File Name "<<endl;
-				cout<<argv[0]<<endl<<"datatype1 datatype2 .... datatypeN "<<endl; 
-	    	}
-	    }
-    else
-    {
-	    int iJ=2;
-	    //cout<<argv[0]<<endl;
-		cout<<"	 Type  "<<"\t"<<"    Value    "<<"\t"<<"    Size    "<<endl;
-	    //while loop for checking the argcount
-		while(iJ<argc)                                      
-	    {
+	
 		    //atoi function for converting string to int
-			int iA=atoi(argv[iJ]);						
+			int iA=atoi(argv);						
 		    if(iA==0)									
 		    {
-			    if(strlen(argv[iJ])==1)
+			    if(strlen(argv)==1)
 			    {
 				    cout<<endl<<"\t char";
-				    cout<<"\t\t"<<argv[iJ]<<"\t\t"<<strlen(argv[iJ]);
+				    cout<<"\t\t"<<argv<<"\t\t"<<strlen(argv);
 			    }
 				else
 				{
 				    cout<<endl<<"\t string";
-				    cout<<"\t\t"<< argv[iJ]<<"\t\t"<<sizeof(argv[iJ]);
+				    cout<<"\t\t"<< argv<<"\t\t"<<sizeof(argv);
 		        }
 	        }
 		    //else case for displaying int and float values
 			else									
 		    {
-			    float fB=atof(argv[iJ]);
+			    float fB=atof(argv);
 			    if(iA==fB)
 			    {
 				    cout<<endl<<"\t int"<<"\t\t"<<iA<<"\t\t"<<sizeof(iA);
@@ -52,17 +32,31 @@ int main(int argc,char *argv[])
 			    else
 				    cout<<endl<<"\t float"<<"\t\t"<<fB<<"\t\t"<<sizeof(fB)<<endl;
 		}
-		iJ++;
 		}
-    }
-    }
-    
-//function to check length of string is '1' or not
-bool checkDatatype(string sStr)
+int main(int argc,char *argv[])
 {
-	int iLength;
-	for(iLength=0;sStr.length()==1;iLength++)
+	if((argc==2)&&(strcmp(argv[1],"-h")==0))
 	{
-		return true;
+	//if loop for comparing the input string with "-h" and displaying the usage	
+	    	//if(strcmp(argv[1],"-h")==0)                 
+	    	{
+	    		cout<<"              Usage Of The File           "<<endl;
+				cout<<argv[0]<<"  datatype1  datatype2 .... datatypeN "<<endl; 
+	    	}
 	}
+	else if(argc==1)
+	{
+		cout<<"In parameters give -h to display usage "<<endl;sett
+	}
+	
+	else 
+	{
+		cout<<"\t type"<<"\t"<<"\t Value"<<"\t"<<"\t Size"<<endl;
+		for(int i=2;i<argc;i++)                         
+		{
+			
+			TypeCheck(argv[i]);
+		}
+	}
+	
 }
