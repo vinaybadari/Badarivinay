@@ -52,7 +52,7 @@ int main(int argc,char *argv[])
 	else 
 	{
 		cout<<"\t type"<<"\t"<<"\t Value"<<"\t"<<"\t Size"<<endl;
-		for(int i=2;i<argc;i++)                         
+		for(int i=1;i<argc;i++)                         
 		{
 			
 			TypeCheck(argv[i]);
