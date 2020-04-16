@@ -19,10 +19,10 @@ void staticStorageClass(int iValue);
 void scope()                        	
 {
 	//local variable
-	int ib=20;                      	
+	int ia=20;                      	
 	cout<<"--------------------VARIABLE SCOPE -------------------------"<<endl;
-	cout<<"                global variable a:"<<ia<<endl;   
-	cout<<"                local variable  b:"<<ib<<endl;
+	cout<<"                global variable a:"<<::ia<<endl;   
+	cout<<"                local variable  b:"<<ia<<endl;
 	cout<<"-----------------------------------------------------------"<<endl;
 }
 void modifier()
@@ -31,16 +31,19 @@ void modifier()
 	short int a;		
 	long int b;			
 	unsigned short c;	 
-	signed short d;			
+	signed short d;	
+	unsigned int e;		
 		cout << "enter value: ";
 		cin>>iNumb;
-				a=c=d=b=iNumb;    
+				a=c=d=b=e=iNumb;    
 		cout << " ---------------- Modifiers--------------------------- "<<endl;
 		// values based on modifiers
 		cout << "             short int 		= " << a << endl;        
 		cout << "             long int  		= " << b << endl;
 		cout << "             unsigned short 	= " <<c << endl;
 		cout << "             signed short 		= " <<d << endl;
+		cout << "             unsignes int 		= " <<e << endl;
+
 		cout << "------------------------------------------------------- "<< endl;
 } 
 class mutable_test
