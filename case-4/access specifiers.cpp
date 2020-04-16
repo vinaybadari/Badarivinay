@@ -25,35 +25,38 @@ class base
 };
 class derive: private base
 {
+	//Ik and Il becomes private members of class derive and x remains private
  	public:
  	    void showdata()
  	    {
- 	           cout <<  "   *** Using Accessmode as private***    " << endl;
-               	   cout <<  "   j is not Accessible because we declared as private " << endl;             
-               	   cout <<  "   value of k is   " << Ik << endl;
-                   cout <<  "   value of l is   " << Il << endl;
+ 	       cout <<  "\t   *** Using Accessmode as private***    " << endl;
+               cout <<  "\t   j is not Accessible because we declared as private " << endl;             
+               cout <<  "\t   value of k is   " << Ik << endl;
+               cout <<  "\t   value of l is   " << Il << endl;
  	    }
 };
 class derivea: protected base
 {
+	//Ik and Il becomes protected members of class derive
  	public:
  	    void showdata()
  	    {
- 	           cout<<   "   *** Using Accessmode as protected***  " << endl;
- 	           cout <<  "   j is not Accessible because we declared as private " << endl;
-               	   cout <<  "   value of k is   " << Ik << endl;
-                   cout <<  "   value of l is    " << Il << endl;
+ 	       cout<<   "\t   *** Using Accessmode as protected***  " << endl;
+ 	       cout <<  "\t   j is not Accessible because we declared as private " << endl;
+               cout <<  "\t   value of k is   " << Ik << endl;
+               cout <<  "\t   value of l is    " << Il << endl;
  	    }
 };
 class deriveb: public base
 {
+	 	//Ik becomes protected and Il becomes public members of class derive
  	public:
  	    void showdata()
  	    {
- 	           cout<<   "   *** Using Accessmode as public*** " << endl;;
- 	           cout <<  "   j is not Accessible because we declared as private " << endl;
-                   cout <<  "   value of k is   " << Ik << endl;
-                   cout <<  "   value of l is   " << Il << endl;
+ 	       cout<<   "\t   *** Using Accessmode as public*** " << endl;;
+ 	       cout <<  "\t   j is not Accessible because we declared as private " << endl;
+               cout <<  "\t   value of k is   " << Ik << endl;
+               cout <<  "\t   value of l is   " << Il << endl;
  	    }
 };
 int main(int argc,char *argv[])
