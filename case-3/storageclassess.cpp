@@ -8,13 +8,12 @@ date: 11/04/2020
 #include<string.h>
 using namespace std;
 //global variable
-int ia=10;                          	
-int ib;
+int ia=10;  
+//Extern variable                        	
 int ic='a'; 
 void autoStorageClass(auto int a);
 void registerStorageClass(register int b);
 void externStorageClass(int iValue);
-void staticStorageClass(int iValue);
 //variable scope function
 void scope()                        	
 {
@@ -45,6 +44,24 @@ void modifier()
 		cout << "             unsignes int 		= " <<e << endl;
 
 		cout << "------------------------------------------------------- "<< endl;
+} 
+int static() 
+{ 
+    cout << "For static variables: "; 
+    static int count = 0; 
+    count++; 
+    return count; 
+} 
+  
+// Function containing non-static variables 
+// memory is destroyed 
+int nonStatic() 
+{ 
+    cout << "For Non-Static variables: "; 
+  
+    int count = 0; 
+    count++; 
+    return count; 
 } 
 class mutable_test
 {
@@ -99,8 +116,12 @@ int main(int argc,char *argv[])
 		externStorageClass(iValue); 
 	
 		// To demonstrate static Storage Class 
-		staticStorageClass(iValue); 
-	
+		// Calling the static parts 
+    	cout << static() << "\n"; 
+    	cout << static() << "\n";  
+  		// Calling the non-static parts 
+ 		cout << nonStatic() << "\n";  
+   		cout << nonStatic() << "\n"; 
 		return 0; 
 	} 
 }
@@ -135,26 +156,3 @@ void externStorageClass(int iValue)
 	cout<<"--------------------------------"<<endl; 
 } 
 
-
-void staticStorageClass(int iValue) 
-{ 	
-	// printing a static variable & non-static variables with in a loop
-	cout<<" Declaring static & non-static variable inside a loop \n"<<endl; 
-	
-	for (int i = 1; i <= 3; i++) { 
-
-		// Declaring the static variable
-		static int p = iValue; 
-
-		// Declare a non-static variable 
-		int q = iValue; 
-
-		// Incrementing the values  
-		p++; 
-		q++; 
-
-		cout<<"	Static variable = "<<p<<endl; 
-		cout<<"	Non-Static variable =  "<<q<<endl; 
-	} 
-	cout<<"-----------------------------------------------------------------"<<endl; 
-} 
