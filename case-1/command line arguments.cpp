@@ -1,3 +1,10 @@
+/*
+filename: command line arguments.cpp
+details: Program to parse the command line and dispaly the output
+author:Badari vinay
+date:07/04/2020
+*/
+
 #include<iostream>
 #include<string.h>
 #include<stdlib.h>
@@ -7,8 +14,8 @@ void TypeCheck(char *argv)
 {
 	
 		    //atoi function for converting string to int
-			int iA=atoi(argv);						
-		    if(iA==0)									
+			int iInt=atoi(argv);						
+		    if(iInt==0)									
 		    {
 			    if(strlen(argv)==1)
 			    {
@@ -24,13 +31,13 @@ void TypeCheck(char *argv)
 		    //else case for displaying int and float values
 			else									
 		    {
-			    float fB=atof(argv);
-			    if(iA==fB)
+			    float fFloat=atof(argv);
+			    if(iInt==fFloat)
 			    {
-				    cout<<endl<<"\t int"<<"\t\t"<<iA<<"\t\t"<<sizeof(iA);
+				    cout<<endl<<"\t int"<<"\t\t"<<iInt<<"\t\t"<<sizeof(iInt);
 			    }
 			    else
-				    cout<<endl<<"\t float"<<"\t\t"<<fB<<"\t\t"<<sizeof(fB)<<endl;
+				    cout<<endl<<"\t float"<<"\t\t"<<fFloat<<"\t\t"<<sizeof(fFloat)<<endl;
 		}
 		}
 int main(int argc,char *argv[])
@@ -46,7 +53,7 @@ int main(int argc,char *argv[])
 	}
 	else if(argc==1)
 	{
-		cout<<"In parameters give -h to display usage "<<endl;sett
+		cout<<"In parameters give -h to display usage "<<endl;
 	}
 	
 	else 
