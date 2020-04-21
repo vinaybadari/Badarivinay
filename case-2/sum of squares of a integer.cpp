@@ -12,12 +12,12 @@ int SumOfSquares()
 {
 		int isum=0;
 		int inum;
-		cout<<"Input	:	";
+		cout<<"Enter Positive integer				:	";
 		cin>>inum;
 		// Formula for given expression , n(n+1)(2n+1)/6
 		isum = (inum * (inum + 1) * (2 * inum+1)) / 6;   
 		// shows the sum of squares of given number
-        	cout<<"Output	:	"<<isum;	
+        cout<<"Sum of squares for given integer	 	:	"<<isum;	
 }
 int main(int argc,char* argv[])
 {
@@ -26,7 +26,7 @@ int main(int argc,char* argv[])
 	{               
 		{
 		    cout<<"----------Usage Of The File---------------"<<endl;
-			cout<<"Enter any integer value  "<<endl; 
+			cout<<"Enter any positive integer value  "<<endl; 
 		}
 	}	
 	else
