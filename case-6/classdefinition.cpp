@@ -5,91 +5,78 @@ author: Badari vinay
 date: 11/04/2020
 */
 #include<iostream>
-#include<cstring>
-#include<stdlib.h>
+#include<string.h>
 using namespace std;
-class Student
+class CopyConstructor
 {
-//declaration of variables in private
-private:
-	char cName[20];
-	int *iNumb;
-public:
-	//default constructor
-	Student()
+   
+    char *s_copy;
+    int *ptr;
+    public:
+	CopyConstructor(int m)
 	{
-		cout<<"\t\t Default constructor invoked"<<endl;
+	*ptr=m;
 	}
-	//parametrised constructor
-	Student(char *str)
-	{
-		cout<<"\t\t Parametrised constructor invoked"<<endl;
-		strcpy(cName,str);//coping string
-	}
-	//Display function
-	void Display()
-	{
-		cout<<"\t\t Rollno: "<<*iNumb<<endl;
-	}
-	//Show function
-	void Show()
-	{
-		cout<<"\t\t Name: "<<cName<<endl;
-	}
-	//overloading oprator'+'
-	Student operator+(Student s)
-	{
-		Student temp=cName;
-		strcat(temp.cName,s.cName);	//adding two strings
-		return temp;
-	}
-	//setValue function
-	void setValue(int *iVal)
-	{
-		iNumb=iVal;
-	}
-	//setName function
-	void setName(char cName[])
-	{
-		cName=cName;
-	}
-	//destructor 
-	~Student()
-	{
-		cout<<"\t\t Destructor invoked"<<endl;
-	}
-};
+    CopyConstructor(const char *str,int p)
+    {
+        s_copy = new char[strlen(str)+1]; //Dynamic memory allocation
+        strcpy(s_copy, str);
+	ptr=new int;
+	*ptr=p;
+	
+    }
 
-int main(int argc,char **argv)
-{
-	if(argc==2) 
+ CopyConstructor(CopyConstructor &s,CopyConstructor &p)
+    {
+	cout<<"deepcopy"<<endl;
+	s_copy=new char[strlen(s.s_copy)+1];
+        strcpy(s_copy, s.s_copy);
+	ptr=new int;
+	*ptr=p.getx();
+    }
+	int getx()
 	{
-		if(strcmp(argv[1],"-h")==0)     
-        {
-			cout<<"\n Usage of file --> \n"
-					"\t filename.exe & enter"<<endl<<
-					"\t Program used to access pointer to integer and char variables. "<<endl<<
-					"\t insert an integer and any two strings. ";
-		}	
+		return *ptr;
 	}
-	else
-	{	
-		int iValue; 
-		char fname[30],sname[30]; 
-		cout<<"\t\t Enter Rollno:";
-		cin>>iValue;
-		cout<<"\t\t Surname: ";
-		cin>>fname;
-		cout<<"\t\t Middle name: ";
-		cin>>sname;
-		//object declaration
-		Student str1(fname);
-		Student str2=(sname);
-		Student str3;
-		Student s;
-		str3=str1+str2;
-		s.setValue(&iValue);
-		s.Display();
-		str3.Show();
-	}
+    /* concatenate method */
+    void concatenate(const char *str,int m)
+    {
+        strcpy(s_copy, str); //Concatenating two strings
+	*ptr=m;
+    }
+    /* destructor */
+   ~CopyConstructor ()
+    {
+
+    } 
+    CopyConstructor operator ++()
+	{
+		
+		++*ptr;
+	}		
+    void display()
+    {
+        cout<<s_copy<<endl;
+	cout<<*ptr<<endl;
+    }
+    void display1()
+    {
+	cout<<*ptr<<endl;
+    }
+};
+/* main function */
+int main()
+{
+    CopyConstructor c1("Copy",9);
+    CopyConstructor c2=c1; //Copy constructor
+    c1.display();
+    c2.display();
+    cout<<"operato overloading"<<endl;
+    CopyConstructor c3(20);
+     ++c3;
+    c3.display1();
+    c1.concatenate("Constructor",8);    //c1 is invoking concatenate()
+    c1.display();
+    c2.display();
+    return 0;
 }
