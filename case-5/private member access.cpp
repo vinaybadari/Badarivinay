@@ -2,101 +2,96 @@
   Author 	:Badari vinay
   Date   	:09/04/2020 
   */
-#include <iostream>
+#include<iostream>
 #include<string.h>
-#include<stdlib.h>
 using namespace std;
-
-// forward declaration of class B. so, that it can specify in friend declaration.
-class B;
-class A 
+class employee                                        
 {
-    private:
-      	 // declaring int iNumA as Private variable.
-		  int iNumA; 
-    public:
-    	//constructor for class A
-      	A()
-		{ 
-			cout<<" Class A constructor called"<<endl; 
-      		setA();
-    		getA();
-	  	}
-	  	
-	  	//setter function
-	  	void setA() 
-		{
-	  		cout<<"\tEnter A value: ";
-    		cin>>iNumA;
-		} 
-		//getter function
-		int getA()
-		{
-			return iNumA;
-		}
-		// destructorclass for class A with virtual keyword
-	  	virtual ~A() 
-		{
-	  		cout<<"\n Class A destructor called"<<endl;
-		}
-		
-      // friend function declaration
-      friend int add(A, B);
+	private:
+		int iID;
+		string sName;
+	        float fSalary;
+	public:
+	    //parameterized constructor
+	    employee(int i,string n,float s)
+	    {
+		      iID=i;
+		      sName=n;
+		      fSalary=s;
+	    }
+	    void display()
+	    {
+	        cout<<"employee id      : "<<iID<<endl;
+	        cout<<"employee name    : "<<sName<<endl;
+	        cout<<"employee salary  : "<<fSalary<<endl;
+	    }
 };
-
-class B 
+//base class
+class base													
 {
-    private:
-       int iNumB;
     public:
-       	B()
-	   	{ 
-	   		cout<<" Class B constructor called"<<endl;
-	   		/*this->numB=numB;
-			cout<<"\tEnter B value: ";
-    		cin>>numB;	*/
-    		setB();
-    		getB();
-	   	}
-	   	void setB(){
-	  		cout<<"\tEnter B value: ";
-    		cin>>iNumB;
-		  }
-		int getB(){
-			return iNumB;
-		}
-		// destructorclass for class B without any virtual keyword
-	    ~B()
-	   	{
-			cout<<"\n Class B destructor called"<<endl;
-		}
-       	// friend function declaration
-       	friend int add(A , B);
+        //base class constructor
+        base()									
+        {
+            cout<<"base class constructor"<<endl;
+        }
+        //virtual member function
+        virtual void function()					
+        {
+            int iVirtualValue=10;
+            cout<<"base class function value:"<<iVirtualValue<<endl;
+        }
+        //virtual destructor
+        virtual ~base()							
+        {
+            cout<<"base class destructor"<<endl;
+        }
 };
-
-// Function add() is the friend function of classes A and B
-// that accesses the member variables iNumA and numB
-int add(A objA, B objB)
+class derived:public base			
 {
-   	return (objA.iNumA + objB.iNumB);
-}
-	int main(int argc,char *argv[])
+    public:
+        //derived class constructor
+        derived()								
+        {
+            cout<<"derived class constructor"<<endl;
+        }
+        void function()
+        {
+           int iValue=20;
+           cout<<"derived class function value:"<<iValue<<endl;
+        }
+        //derived destructor
+        ~derived()							
+        {
+            cout<<"derived class destructor"<<endl;
+        }
+};
+int main(int argc,char *argv[])
 {
-    if(argc==2) 
-	{
-		if(strcmp(argv[1],"-h")==0)     
-        	{
-			cout<<"\n Usage of file --> \n"
-					"\t filename.exe & enter"<<endl<<
-					" Program used to demonstrate different access specifiers "<<endl;
-		}	
-	}
-	else
-	{
-    A objA;
-    B objB;
-    
-    cout<<"\n Sum: "<< add(objA, objB) <<endl;
-    return 0;
+    if(argc==2)
+    {
+        //if loop for comparing the input string with "-h"	
+	    if(strcmp(argv[1],"-h")==0)	  						
+	    {
+            cout<<"                                    USAGE                                          "<<endl;
+            cout<<"	the private variables in a class and usage of constructing 	"<<endl;
+            cout<<" 	and destructing objects with and without virtual "<<endl;
+	    }
+    }
+    else
+	{   
+        employee e1(191511005,"Badari vinay",25000);
+        cout<<"****  DIFFERENT WAYS TO INITIALIZE PRIVATE VARIABLES IN A CLASS ****"<<endl;
+        e1.display();
+		cout<<"---------------------------------------------------------------------------------"<<endl;
+		cout<<"**** ORDER OF THE CONSTRUCTION AND DESTRUCTION OF OBJECTS WITH AND WITHOUT VIRTUAL ****"<<endl;
+		//creating the derived class dynamically using base pointer
+        base *b=new derived();					
+        b->function();
+        //derived object creation
+        derived d;								
+        d.function();
+        //freeing the allocated memory
+        delete b;								
 	}
 }
