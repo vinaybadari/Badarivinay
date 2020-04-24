@@ -8,215 +8,142 @@ date: 15/04/2020
 #include<string.h>
 #include<stdio.h>
 #include<stdlib.h>
+#include<fstream>
 using namespace std;
 
-class Notes{
-private:
-		//declaring variables for the file
-        char cPrg[300];
-        char cDir[300];
-        int iKit;
-        int iInstall;
-        int iPNo;
-        int iStatusWindow;        
-        char cService[300];
-        char cRecovery[200];
-        int iTimezone;
-        int iDst;
-        int iDstlaw;
-        char cFiledir[300];
-
-		//waitforEnter function, it waits for the user to give enter, it help in ease of execution step by step
-        void waitForEnter(){
-                cout<<"\n\n\n Press enter to go back \n\n";
-                cin.get();
+class ManageConfig{
+	
+		 string key;
+         string value;
+           
+		void addConfig()
+		{                
+          cout<<"Enter Config Key : ";
+            cin>>key;  
+			//getline(cin,key);  
+		//	cin.ignore();                    
+            cout<<"Enter Config Value : ";
+		//	getline(cin, value);
+			cin>>value;
+            FILE  *file;
+            file= fopen("notes.ini","a");
+            fprintf(file,"%s = %s\n",key.c_str(),value.c_str());
+            fclose(file);
+            cout<<"New Config pair is added";
         }
-		
-		//addNotesInfo function, adds the data in notes.ini if the file does not exists it will create one.
-		void addNotesInfo(void)
-		{
-                char moreRecords;  
-                //adds records till while loop is true or moreRecords == 'y'
-				do{              
-                        cout<<"\n----------------------------------------";
-                        cout<<"\n NotesProgram= [give path]";
-                        cin>>cPrg;
-                        cout<<"\n Directory= [give path]";
-                        cin>>cDir;
-                        cout<<"\n KitType= [give integer]";
-                        cin>>iKit;
-                        cout<<"\n InstallType= [give integer]";
-                        cin>>iInstall;
-                        cout<<"\n PartitionNumber= [give integer]";
-                        cin>>iPNo;
-                        cout<<"\n showControllerStatusWindow= [give integer]";
-                        cin>>iStatusWindow;
-                        cout<<"\n ServiceName= [give string]";
-                        cin>>cService;                        
-                        cout<<"\n FaultRecovery_Build= [give string]";
-                        cin>>cRecovery;                        
-                        cout<<"\n Timezone= [give integer]";
-                        cin>>iTimezone;                        
-                        cout<<"\n DST= [give integer]";
-                        cin>>iDst;                        
-                        cout<<"\n DSTLAW= [give integer, no commas]";
-                        cin>>iDstlaw;                        
-                        cout<<"\n FileDlgDirectory= [give path]";
-                        cin>>cFiledir;
-                        
-                        cout<<"\n----------------------------------------";
-
-                        char ch;
-                        cout<<"\nEnter 'y' to save above information\n";
-                        cin>>ch;
-                        //adds data if the condition is 'y'
-                        if(ch=='y'){
-                                FILE  *file;
-                                //creates or appends the notes.ini file
-                                file= fopen("notes.ini","a");
-                                //prints data into notes.ini file
-                                fprintf(file,"\n NotesProgram= %s \n Directory= %s \n KitType= %i \n InstallType= %i \n PartitionNumber= %i \n showControllerStatusWindow= %i \n ServiceName= %s \n FaultRecovery_Build= %s \n Timezone= %i \n DST= %i \n DSTLAW= %i \n FileDlgDirectory= %s \n", cPrg, cDir, iKit, iInstall, iPNo, iStatusWindow, cService, cRecovery, iTimezone, iDst, iDstlaw, cFiledir);
-                                fclose(file);
-                                cout<<"\n Information is added to database\n";
-                        }
-                        else
-                        addNotesInfo(); //if condition is 'n' it recalls the addNotesInfo function 
-                        waitForEnter();
-                        getchar();
-                        cout<<"do you want to add more records? (Y/N)";
-                        cin>>moreRecords;
-                }while(moreRecords=='y');
-        }
-        
-        // listconfig function, shows the total data present inside the notes.ini file
-		void listconfig(void)
+		void listConfig()
 		{
                 FILE *file;
-                //reads notes.ini file
                 file= fopen("notes.ini", "r");
-                cout<<"\n\t\t      ListConfig	\n";
-                
-                while(fscanf(file,"\n NotesProgram= %s \n Directory= %s \n KitType= %i \n InstallType= %i \n PartitionNumber= %i \n showControllerStatusWindow= %i \n ServiceName= %s \n FaultRecovery_Build= %s \n Timezone= %i \n DST= %i \n DSTLAW= %i \n FileDlgDirectory= %s \n", &cPrg[0], &cDir[0], &iKit, &iInstall, &iPNo, &iStatusWindow, &cService[0], &cRecovery[0], &iTimezone, &iDst, &iDstlaw, &cFiledir[0])!= EOF)
+                cout<<"Here is the content of Config file : "<<endl;
+                while(fscanf(file,"%s = %s\n", &key[0], &value[0])!= EOF)
 				{
-                	cout<<"\n----------------------------------------";
-                        cout<<"\n NotesProgram= "<<cPrg;
-                        cout<<"\n Directory= "<<cDir;
-                        cout<<"\n KitType= "<<iKit;
-                        cout<<"\n InstallType= "<<iInstall;
-                        cout<<"\n PartitionNumber= "<<iPNo;
-                        cout<<"\n showControllerStatusWindow= "<<iStatusWindow;
-                        cout<<"\n ServiceName= "<<cService;                        
-                        cout<<"\n FaultRecovery_Build= "<<cRecovery;                        
-                        cout<<"\n Timezone= "<<iTimezone;                        
-                        cout<<"\n DST= "<<iDst;                        
-                        cout<<"\n DSTLAW= "<<iDstlaw;                        
-                        cout<<"\n FileDlgDirectory= "<<cFiledir;                        
-                        cout<<"\n----------------------------------------";
+                	cout<<key<<"="<<value<<endl;                  
 				}
-        
                 fclose(file);
-                waitForEnter();
+                cout<<endl;
         }
  		
- 		//editExisting function, used in updating the existing records
- 		//creates a temp file writes new updated records and renames them temp file to notes.ini
- 		void editExisting(void)
+ 		void editConfig()
 		{
-                char checkId[30];
-                cout<<"\nEnter Service Name= ";
-                cin>>checkId;
-                char newFiledir[300];
-                cout<<"\n-----------------------------";
-                cout<<"\nEnter new FileDlgDirectory= ";
-                cin>>newFiledir;
-                
-                FILE *file, *tempfile;
+                 string fkey;
+                cout<<"Enter key to find value : ";
+                cin>>fkey;
+              //  cin.ignore();
+                 string rvalue;
+                cout<<"\nEnter value for key : ";
+              //  getline(cin, rvalue);
+              	cin>>rvalue;
+                 string config=" ";
+                FILE *file;
                 file= fopen("notes.ini", "r");
-                tempfile= fopen("temp.ini", "w");
-                while(fscanf(file,"\n NotesProgram= %s \n Directory= %s \n KitType= %i \n InstallType= %i \n PartitionNumber= %i \n showControllerStatusWindow= %i \n ServiceName= %s \n FaultRecovery_Build= %s \n Timezone= %i \n DST= %i \n DSTLAW= %i \n FileDlgDirectory= %s \n", &cPrg[0], &cDir[0], &iKit, &iInstall, &iPNo, &iStatusWindow, &cService[0], &cRecovery[0], &iTimezone, &iDst, &iDstlaw, &cFiledir[0])!= EOF)
+                while(fscanf(file,"%s = %s\n", &key[0], &value[0])!= EOF)
 				{
-						//checks the ServerName either its present in the record or not. 
-                        if(strcmp(checkId, cService)==0)
-                                fprintf(tempfile, "\n NotesProgram= %s \n Directory= %s \n KitType= %i \n InstallType= %i \n PartitionNumber= %i \n showControllerStatusWindow= %i \n ServiceName= %s \n FaultRecovery_Build= %s \n Timezone= %i \n DST= %i \n DSTLAW= %i \n FileDlgDirectory= %s \n", cPrg, cDir, iKit, iInstall, iPNo, iStatusWindow, cService, cRecovery, iTimezone, iDst, iDstlaw, newFiledir);
-                        else
-                                fprintf(tempfile, "\n NotesProgram= %s \n Directory= %s \n KitType= %i \n InstallType= %i \n PartitionNumber= %i \n showControllerStatusWindow= %i \n ServiceName= %s \n FaultRecovery_Build= %s \n Timezone= %i \n DST= %i \n DSTLAW= %i \n FileDlgDirectory= %s \n", cPrg, cDir, iKit, iInstall, iPNo, iStatusWindow, cService, cRecovery, iTimezone, iDst, iDstlaw, cFiledir);
+                        if(strcmp(fkey.c_str(), key.c_str())==0){
+                                config += fkey+" = "+rvalue+"\n";
+                            }
+                        else{
+                                config += key +" = "+ value+"\n";
+                        }
                 }
                 fclose(file);
-                fclose(tempfile);
-                int isRemoved= remove("notes.ini");
-                int isRenamed= rename("temp.ini", "notes.ini");
-                waitForEnter();
+                ofstream out("notes.ini");
+    			out << config;
+    			out.close();
+    			cout<<"Config edited"<<endl;
         }
-        
-        //Deleting the records in notes.ini
-        void deleteConfig(void){
 
-                char checkId[30];
-                cout<<"\nEnter Service Name= ";
-                cin>>checkId;
-                char ch;
-                cout<<"\n\n\n Confirmation\n Enter 'y' To Confirm Deletion \n";
-                cin>>ch;
-                if(ch=='y'){
-                        FILE *file, *tempfile;
-                        file= fopen("notes.ini", "r");
-                        tempfile= fopen("temp.ini", "w");
-                        
-                		//checks for the server name and deletes it
-                        while(fscanf(file, "\n NotesProgram= %s \n Directory= %s \n KitType= %i \n InstallType= %i \n PartitionNumber= %i \n showControllerStatusWindow= %i \n ServiceName= %s \n FaultRecovery_Build= %s \n Timezone= %i \n DST= %i \n DSTLAW= %i \n FileDlgDirectory= %s \n", &cPrg[0], &cDir[0], &iKit, &iInstall, &iPNo, &iStatusWindow, &cService[0], &cRecovery[0], &iTimezone, &iDst, &iDstlaw, &cFiledir[0])!= EOF)
-                                if(strcmp(checkId, cService)!=0)
-                                        fprintf(tempfile, "\n NotesProgram= %s \n Directory= %s \n KitType= %i \n InstallType= %i \n PartitionNumber= %i \n showControllerStatusWindow= %i \n ServiceName= %s \n FaultRecovery_Build= %s \n Timezone= %i \n DST= %i \n DSTLAW= %i \n FileDlgDirectory= %s \n", cPrg, cDir, iKit, iInstall, iPNo, iStatusWindow, cService, cRecovery, iTimezone, iDst, iDstlaw, cFiledir);
-                                    fclose(file);
-                                    fclose(tempfile);
-                                    int isRemoved= remove("notes.ini");
-                                    int isRenamed= rename("temp.ini", "notes.ini");
-                                    cout<<"\nRemoved data Successfully\n";
+        void deleteConfig(){
+    			 string fkey;
+                cout<<"Enter key to find value : ";
+                cin>>fkey;
+                
+				 string config="";
+                FILE *file;
+                file= fopen("notes.ini", "r");
+                while(fscanf(file,"%s = %s\n", &key[0], &value[0])!= EOF)
+				{ 
+                        if(strcmp(fkey.c_str(), key.c_str())!=0){
+                                config += key +" = "+ value+"\n";
+                    	}
+                    	else{
+                    		cout<<"Config Deleted"<<endl;
+						}
                 }
-                else
-                    deleteConfig();
+                fclose(file);
+                ofstream out("notes.ini");
+    			out << config;
+    			out.close();
         }
+        public: ~ManageConfig(){
+			 FILE *file;
+                file= fopen("notes.ini", "r");
+                string config="";
+                while(fscanf(file,"%s = %s\n", &key[0], &value[0])!= EOF)
+				{
+                	config+=key+" = "+value+"\n";                  
+				}
+                fclose(file);
+                if(strcmp(config.c_str(),"")==0){
+                	remove("notes.ini");
+                	cout<<endl<<"File Deleted"<<endl;
+				}
+			}
 		
 public:
-		//options function, used to take specific requests from the user and perform accordingly
-        void options(void){
+		   void choices(){
                 while(true){
 
-                        cout<<"\n\t\t\t>>>  Notes Config List  <<<";
-                        cout<<"\n";
-                        cout<<"\n\t\t\t---------------------------";
-                        cout<<"\n\t\t\t   1:   AddConfig";
-                        cout<<"\n\t\t\t---------------------------";
-                        cout<<"\n\t\t\t   2:   listconfig";
-                        cout<<"\n\t\t\t---------------------------";
-                        cout<<"\n\t\t\t   3:   editConfig";
-                        cout<<"\n\t\t\t---------------------------";
-                        cout<<"\n\t\t\t   4:   deleteConfig";
-                        cout<<"\n\t\t\t---------------------------";
-                        cout<<"\n\t\t\t   0:   To Exit     ";
-                        cout<<"\n\t\t\t---------------------------";
-                        cout<<"\n\n\t\t   Please Enter Your Choice: ";
+                        cout<<"Manage Config file : "<<endl;
+                        cout<<"   1:   AddConfig"<<endl;
+                        cout<<"   2:   listconfig"<<endl;
+                        cout<<"   3:   editConfig"<<endl;
+                        cout<<"   4:   deleteConfig"<<endl;
+                        cout<<"   5:   To Exit     "<<endl;
+                        cout<<"   Please Enter Your Choice : ";
 
-                        int choice;
-                        cin>>choice;
+                        int option;
+                        cin>>option;
 
-                        switch (choice) {
-                                case 0:
-                                        cout<<"\n\n Notes Domino List \n\n ";
-                                        return;
+                        switch (option) {
+
                                 case 1:
-                                        addNotesInfo();
+                                        addConfig();
                                         break;
                                 case 2:
-                                		listconfig();
+                                		listConfig();
                                 		break;
                                 case 3:
-                                		editExisting();
+                                		editConfig();
                                 		break;
                                 case 4: 
                                 		deleteConfig();
                                 		break;
+                                case 5:
+                                        cout<<endl<<"Good bye!";
+                                        return;
                                 default:
-                                        cout<<"\n Sorry! Invalid option!!! \n";
+                                        cout<<" Please try again! Invalid option!!! \n";
                                         break;
                         }
                 }
@@ -225,7 +152,7 @@ public:
         
         
 
-int main(int argc,char *argv[]){
+int main(int argc, char *argv[]){
 	if(argc==2) 
 	{
 		if(strcmp(argv[1],"-h")==0)     //created a help command
@@ -240,8 +167,8 @@ int main(int argc,char *argv[]){
 	}
 	else
 	{
-        Notes n;
-        n.options();
+        ManageConfig obj;
+        obj.choices();
 	}
 	return 0;
 }
