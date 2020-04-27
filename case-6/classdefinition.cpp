@@ -6,18 +6,14 @@ date: 11/04/2020
 */
 #include<iostream>
 #include<string.h>
+#include"headerfile.h"
 using namespace std;
-class CopyConstructor
-{
-   
-    char *s_copy;
-    int *ptr;
-    public:
-	CopyConstructor(int m)
+
+	copyconstructor :: copyconstructor(int m)
 	{
 	*ptr=m;
 	}
-    CopyConstructor(const char *str,int p)
+    copyconstructor :: copyconstructor(const char *str,int p)
     {
         s_copy = new char[strlen(str)+1]; //Dynamic memory allocation
         strcpy(s_copy, str);
@@ -26,7 +22,7 @@ class CopyConstructor
 	
     }
 
- CopyConstructor(CopyConstructor &s,CopyConstructor &p)
+ 	copyconstructor :: copyconstructor(copyconstructor &s,copyconstructor &p)
     {
 	cout<<"deepcopy"<<endl;
 	s_copy=new char[strlen(s.s_copy)+1];
@@ -34,49 +30,61 @@ class CopyConstructor
 	ptr=new int;
 	*ptr=p.getx();
     }
-	int getx()
+	int copyconstructor :: getx()
 	{
 		return *ptr;
 	}
     /* concatenate method */
-    void concatenate(const char *str,int m)
+    void copyconstructor :: concatenate(const char *str,int m)
     {
         strcpy(s_copy, str); //Concatenating two strings
 	*ptr=m;
     }
     /* destructor */
-   ~CopyConstructor ()
+   copyconstructor :: ~copyconstructor ()
     {
 
     } 
-    CopyConstructor operator ++()
+    void copyconstructor ::  operator ++()
 	{
 		
 		++*ptr;
 	}		
-    void display()
+    void copyconstructor :: display()
     {
         cout<<s_copy<<endl;
 	cout<<*ptr<<endl;
     }
-    void display1()
+    void copyconstructor ::  display1()
     {
 	cout<<*ptr<<endl;
     }
-};
 /* main function */
-int main()
+int main(int argc,char* argv[])
 {
-    CopyConstructor c1("Copy",9);
-    CopyConstructor c2=c1; //Copy constructor
+	 if(argc==2)
+    {
+    	//if loop for comparing the input string with "-h"
+	    if(strcmp(argv[1],"-h")==0)	 				
+	    {
+            cout<<"                                     USAGE                                          "<<endl;
+            cout<<"This program demonstrates a class has two private member variables int*,char[20] and "<<endl;
+			cout<<"Usage of constructors ,destructors,operator overloading and members functions to complete the class declaration and definition "<<endl;
+	    }
+    }
+    else
+	{
+    copyconstructor c1("Copy",9);
+    copyconstructor c2=c1; //Copy constructor
     c1.display();
     c2.display();
     cout<<"operato overloading"<<endl;
-    CopyConstructor c3(20);
+    copyconstructor c3(20);
      ++c3;
     c3.display1();
     c1.concatenate("Constructor",8);    //c1 is invoking concatenate()
     c1.display();
     c2.display();
+	}
     return 0;
 }
