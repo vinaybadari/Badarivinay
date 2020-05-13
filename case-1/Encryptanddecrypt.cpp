@@ -8,14 +8,15 @@
 #include <conio.h>
 #include<fstream>
 #include <string>
+#include"EncryptDecrypt.h"
 
 using namespace std;
 
-string filename,key,t;          //declaration of string names filename,key used for password and t;
-void encrypt()
+        //declaration of string names filename,key used for password and t;
+void EncryptDecrypt::encrypt(char *arg1)
 {
     ifstream myfile;          //ifstream is used to read the file
-    myfile.open("vinay.txt"); // here give file name to encrypt 
+    myfile.open ("vinay.txt"); // here give file name to encrypt 
             ofstream outfile;        //ofstream is used to write in a file (outfile is an instance of ofstream)
         	outfile.open("Encrypted.txt");   
             string line;
@@ -24,7 +25,7 @@ void encrypt()
             cout<<"Encrypting............  "<<endl;
 
             cout<<"=============================="<<endl;
-            outfile << key << endl;
+            outfile << key << arg1<<endl;
             while(getline(myfile , line))        //copying all the words of file into line;
             {
             string text;       
@@ -63,7 +64,7 @@ void encrypt()
         
 }
 //function to decrpyt
-void decrypt()
+void EncryptDecrypt::decrypt(char *key)
 {
     ifstream myfile;
     myfile.open("Encrypted.txt");
@@ -116,44 +117,44 @@ void decrypt()
         else
             cout<<"Key does not match :<"<<endl;
 }
-int main(int argc,char* argv[])
+int main(int argc,char *argv[])
 {
+    EncryptDecrypt Obj;
     if(argc==1)
     {
-        cout<<"use "<<argv[0]<<" -h command"<<endl;
+        cout<<"give -h as a command to get the usage"<<endl;
     }
-    else if(argc==2 && strcmp(argv[1],"-h")==0)
+    else if((argc==2)&&(strcmp(argv[1],"-h")==0))
     {
-        cout<<argv[0]<<" -d/-e -f  -k "<<endl;
+        cout<<"-------------------Usage-----------------";
+        cout<<"Enter -e/-d -f [filename] -k [key]"<<endl;
+        cout<<"Enter -e/-d -k [key] -f [filename]"<<endl;
     }
     else
     {
-    	if(strcmp(argv[1],"-e")==0)
-    	{
-    		if(strcmp(argv[2],"-f")==0)
-    		{
-    			key=argv[5];
-    			encrypt();
-    			
-			}
-			else if(strcmp(argv[4],"-f")==0)
-			{
-				key=argv[3];
-				encrypt();
-			}
-		}
-		else if(strcmp(argv[1],"-d")==0)
-		{
-			if(strcmp(argv[2],"-f")==0)
-			key=argv[5];
-				decrypt();
-			
-			}
-			else if(strcmp(argv[1],"-d")==0)
-			{
-				if(strcmp(argv[4],"-f")==0)
-				key=argv[3];
-				decrypt();
-			}
-		}
-	}
+            if(strcmp(argv[1],"-e")==0)
+            {
+                if((strcmp(argv[2],"-f")==0)&&(strcmp(argv[4],"-k")==0))
+                {
+                    Obj.encrypt(argv[5]);
+                }
+                if((strcmp(argv[2],"-k")==0)&&(strcmp(argv[4],"-f")==0))
+                {
+                    Obj.encrypt(argv[3]);
+                }
+            }
+            else if(strcmp(argv[1],"-d")==0)
+            {
+                if((strcmp(argv[2],"-f")==0)&&(strcmp(argv[4],"-k")==0))
+                {
+                    Obj.decrypt(argv[5]);
+                }
+                if((strcmp(argv[2],"-k")==0)&&(strcmp(argv[4],"-f")==0))
+                {
+                    Obj.decrypt(argv[3]);
+                }
+            }
+            else
+                cout<<"Please enter -h to get the usage"<<endl;
+    }
+}
