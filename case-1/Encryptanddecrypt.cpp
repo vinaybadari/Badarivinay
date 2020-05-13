@@ -122,7 +122,7 @@ int main(int argc,char *argv[])
     EncryptDecrypt Obj;
     if(argc==1)
     {
-        cout<<"give -h as a command to get the usage"<<endl;
+        cout<<"type -h as a command to view usage of a program"<<endl;
     }
     else if((argc==2)&&(strcmp(argv[1],"-h")==0))
     {
