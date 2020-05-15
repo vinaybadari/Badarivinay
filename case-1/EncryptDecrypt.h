@@ -7,8 +7,16 @@
 using namespace std;
 class EncryptDecrypt
 {
+	string filename,key,t;
 public:
-  	string filename,key,t;  
+	EncryptDecrypt()
+	{
+  	string filename,key,t;
+	}		
+	~EncryptDecrypt()
+    {
+        cout<<"deallocating memory";
+    }
     void encrypt(char *arg1);
     void decrypt(char *key);
 };
