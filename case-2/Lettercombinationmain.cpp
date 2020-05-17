@@ -9,7 +9,7 @@ int main(int argc,char* argv[])
     if(argc==2 && strcmp(argv[1],"-h")==0)
     {
         //created help command
-        cout<<"Enter Input"<<endl;
+        cout<<"Enter Number from 2 to 9 to get lettercombination"<<endl;
     }
     else
     {
