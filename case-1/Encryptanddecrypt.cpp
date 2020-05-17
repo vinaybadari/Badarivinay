@@ -9,152 +9,111 @@
 #include<fstream>
 #include <string>
 #include"EncryptDecrypt.h"
-
 using namespace std;
-
-        //declaration of string names filename,key used for password and t;
-void EncryptDecrypt::encrypt(char *arg1)
-{
-    ifstream myfile;          //ifstream is used to read the file
-    myfile.open ("vinay.txt"); // here give file name to encrypt 
-            ofstream outfile;        //ofstream is used to write in a file (outfile is an instance of ofstream)
-        	outfile.open("Encrypted.txt");   
-            string line;
-            cout<<"=============================="<<endl;
-
-            cout<<"Encrypting............  "<<endl;
-
-            cout<<"=============================="<<endl;
-            outfile << key << arg1<<endl;
-            while(getline(myfile , line))        //copying all the words of file into line;
-            {
-            string text;       
-            char space=' ';    
-            int index=0;
-            int found = line.find(space);
-                    while(found != string::npos)
-                    {
-                        int x=found-index;
-                        string word=line.substr(index,x);
-                        //cout<<word << index <<found<<endl;
-                        reverse(word.begin(), word.end());           
-                        //cout<< word <<endl;
-                        text=text+word+"*";
-                        index=found+1;
-                        found = line.find(space,index);
-                    }
-                    if(index<line.size())
-                    {
-                        string word=line.substr(index);
-                        reverse(word.begin(), word.end());
-                        text=text+word;
-                    }
-                
-                outfile << text << endl;
-                myfile.ignore();
-
-            }
-            myfile.close();     
-            outfile.close();
-            cout<<"=============================="<<endl;
-
-            cout<<"Encrypted and saved on Encrypted.txt"<<endl;
-
-            cout<<"=============================="<<endl;
-        
-}
-//function to decrpyt
-void EncryptDecrypt::decrypt(char *key)
-{
-    ifstream myfile;
-    myfile.open("Encrypted.txt");
-    
-        string line;
-        
-        ofstream outfile;
-        outfile.open("Decrypted.txt");
-
-        getline(myfile , line);
-        if(key==line)             //if password matches then you can decrpyt the file 
+void EncryptDecrypt::encrypt(char* cfile,char *arg1)
+{ 
+    ifstream infile(cfile);
+    if(infile)
+ 	{
+ 	ofstream outfile;        
+    outfile.open("Encrypted.txt"); 
+	if(!outfile) 
+	{
+		cout<<"Error in opening file";
+	 } 
+    string line;
+    cout<<"=============================="<<endl;
+    cout<<"Encrypting............  "<<endl;
+    cout<<"=============================="<<endl;
+    outfile <<key<<arg1<<endl;
+	while(getline(infile , line))      
+    {
+        string text;       
+        char space=' ';    
+        int index=0;
+        int found = line.find(space);
+        while(found != string::npos)
         {
-            while (getline(myfile , line))
-            {                                   
-                string text;                      
-                char special_char='*';
-                int index=0;
-                int found = line.find(special_char);
-                //cout<<line<<".."<<endl;                                
-                    while(found != string::npos)
-                    {
-                        int x=found-index;
-                        string word=line.substr(index,x);
-                        //cout<<word << index <<found<<endl;
-                        reverse(word.begin(), word.end());
-                        //cout<< word <<endl;
-                        text=text+word+" ";
-                        index=found+1;
-                        found = line.find(special_char,index);
-                    }
-                    if(index<=line.size())
-                    {
-                        string word=line.substr(index);
-                        reverse(word.begin(), word.end());
-                        text=text+word;
-                    }
-                
+            int x=found-index;
+            string word=line.substr(index,x);
+            //cout<<word << index <<found<<endl;
+            reverse(word.begin(), word.end());           
+            //cout<< word <<endl;
+            text=text+word+"*";
+            index=found+1;
+            found = line.find(space,index);
+        }
+            if(index<line.size())
+            {
+                string word=line.substr(index);
+                reverse(word.begin(), word.end());
+                text=text+word;
+            }
                 outfile << text << endl;
-                myfile.ignore();
-
-            }
-            cout<<"=============================="<<endl;
-
-            cout<<"Decrypted and save on file: Decrypted.txt......"<<endl;
-
-            cout<<"=============================="<<endl;
-            myfile.close();    
-            outfile.close();
-        }      
+                infile.ignore();
+	}
+        infile.close();     
+        outfile.close();
+        cout<<"=============================="<<endl;
+        cout<<"Encrypted and saved on Encrypted.txt"<<endl;
+        cout<<"=============================="<<endl;
+	}
         else
-            cout<<"Key does not match :<"<<endl;
+        {
+        	cout<<"file not exits";
+		}
 }
-int main(int argc,char *argv[])
+void EncryptDecrypt::decrypt(char* cfile, char *key)
 {
-    EncryptDecrypt Obj;
-    if(argc==1)
+	ifstream infile(cfile);
+	if(infile)               
     {
-        cout<<"type -h as a command to view usage of a program"<<endl;
-    }
-    else if((argc==2)&&(strcmp(argv[1],"-h")==0))
-    {
-        cout<<"-------------------Usage-----------------";
-        cout<<"Enter -e/-d -f [filename] -k [key]"<<endl;
-        cout<<"Enter -e/-d -k [key] -f [filename]"<<endl;
-    }
-    else
-    {
-            if(strcmp(argv[1],"-e")==0)
+   	string line;    
+    ofstream outfile;
+    outfile.open("Decrypted.txt");
+    getline(infile , line);
+    if(key==line)
+ 	{
+ 		while (getline(infile, line))
+        {                                   
+            string text;                      
+            char special_char='*';
+            int index=0;
+            int found = line.find(special_char);
+            //cout<<line<<".."<<endl;                                
+            while(found != string::npos)
             {
-                if((strcmp(argv[2],"-f")==0)&&(strcmp(argv[4],"-k")==0))
-                {
-                    Obj.encrypt(argv[5]);
-                }
-                if((strcmp(argv[2],"-k")==0)&&(strcmp(argv[4],"-f")==0))
-                {
-                    Obj.encrypt(argv[3]);
-                }
+                int x=found-index;
+                string word=line.substr(index,x);
+                //cout<<word << index <<found<<endl;
+                reverse(word.begin(), word.end());
+                //cout<< word <<endl;
+                text=text+word+" ";
+                index=found+1;
+                found = line.find(special_char,index);
             }
-            else if(strcmp(argv[1],"-d")==0)
-            {
-                if((strcmp(argv[2],"-f")==0)&&(strcmp(argv[4],"-k")==0))
+                if(index<=line.size())
                 {
-                    Obj.decrypt(argv[5]);
+                    string word=line.substr(index);
+                    reverse(word.begin(), word.end());
+                    text=text+word;
                 }
-                if((strcmp(argv[2],"-k")==0)&&(strcmp(argv[4],"-f")==0))
-                {
-                    Obj.decrypt(argv[3]);
-                }
-            }
-            else
-                cout<<"Please enter -h to get the usage"<<endl;
-    }
+                outfile << text << endl;
+                infile.ignore();
+			}
+            cout<<"=============================="<<endl;
+            cout<<"Decrypted and save on file: Decrypted.txt......"<<endl;
+            cout<<"=============================="<<endl;
+            infile.close();    
+            outfile.close();
+		}  
+        else
+        {
+            cout<<"key not found"<<endl;
+    	}
+	}
+	else
+	{
+		cout<< "no such file"<<endl;
+	}
 }
